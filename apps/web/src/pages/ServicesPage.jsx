@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
-import { Bot, Workflow, Sparkles, TrendingUp, DollarSign, Gauge, GraduationCap, BookOpen, Award, Users } from 'lucide-react';
+import { Bot, Workflow, Sparkles, TrendingUp, Clock, PlayCircle, Settings2, GraduationCap, BookOpen, Award, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 
@@ -26,9 +26,9 @@ const ServicesPage = () => {
   ];
 
   const automationBenefits = [
-    { icon: DollarSign, metric: '47%', label: 'Reducción de costos operativos' },
-    { icon: Gauge, metric: '73%', label: 'Mejora en tiempos de respuesta' },
-    { icon: TrendingUp, metric: '2.8x', label: 'Incremento en productividad' },
+    { icon: Clock, metric: '24/7', label: 'Automatización funcionando todos los días' },
+    { icon: PlayCircle, metric: 'En vivo', label: 'Demos reales del sistema, no mockups' },
+    { icon: Settings2, metric: 'A medida', label: 'Cada flujo se diseña para tu negocio' },
   ];
 
   const academyFeatures = [

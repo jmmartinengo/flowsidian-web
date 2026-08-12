@@ -2,7 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { ArrowRight, Bot, GraduationCap, Sparkles, Workflow, Award, TrendingUp, DollarSign, Gauge } from 'lucide-react';
+import { ArrowRight, Bot, GraduationCap, Sparkles, Workflow, Award, Clock, PlayCircle, Settings2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
@@ -10,9 +10,9 @@ import WaveBackground from '@/components/WaveBackground.jsx';
 import { Button } from '@/components/ui/button';
 
 const stats = [
-  { icon: DollarSign, metric: '47%', label: 'Reducción de costos operativos' },
-  { icon: Gauge, metric: '73%', label: 'Mejora en tiempos de respuesta' },
-  { icon: TrendingUp, metric: '2.8x', label: 'Incremento en productividad' },
+  { icon: Clock, metric: '24/7', label: 'Automatización funcionando todos los días' },
+  { icon: PlayCircle, metric: 'En vivo', label: 'Demos reales del sistema, no mockups' },
+  { icon: Settings2, metric: 'A medida', label: 'Cada flujo se diseña para tu negocio' },
 ];
 
 const services = [

@@ -161,11 +161,6 @@ const AcademyPage = () => {
     }
   };
 
-  const handleEnrollment = (e) => {
-    e.preventDefault();
-    navigate('/contact');
-  };
-
   const handleWaitlistOpen = (course) => {
     setWaitlistForm({ name: '', email: '', phone: '' });
     setWaitlistCourse(course);
@@ -446,19 +441,18 @@ const AcademyPage = () => {
 
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-border mt-6">
                 <div className="text-center sm:text-left">
-                  <p className="text-2xl font-black text-foreground">{selectedCourse.price}</p>
-                  <p className="text-xs text-muted-foreground font-medium">{selectedCourse.paymentMethod}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Monto de inversión no disponible por ahora</p>
                 </div>
                 <div className="flex items-center gap-3 w-full sm:w-auto">
-                  <button 
+                  <button
                     onClick={() => setSelectedCourse(null)}
                     className="flex-1 sm:flex-initial px-5 py-2.5 rounded-lg border border-border text-sm font-medium hover:bg-muted/50 transition-all text-center"
                   >
                     Cerrar
                   </button>
-                  <button 
-                    onClick={handleEnrollment}
-                    className="flex-1 sm:flex-initial px-6 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm text-center shadow-lg transition-all"
+                  <button
+                    disabled
+                    className="flex-1 sm:flex-initial px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-bold text-sm text-center shadow-lg opacity-50 cursor-not-allowed"
                   >
                     Inscribirme ahora
                   </button>
