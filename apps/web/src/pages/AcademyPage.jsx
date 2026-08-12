@@ -31,6 +31,7 @@ const AcademyPage = () => {
       id: 'gestion-digital',
       title: 'Gestión Digital y Productividad para Agencias de Viajes',
       description: 'Ordená la información de tu agencia, gestioná clientes y ahorrá tiempo operativo usando herramientas gratuitas e Inteligencia Artificial.',
+      image: '/courses/gestion-digital.jpg',
       duration: '8 Clases (En vivo)',
       level: 'Todos los niveles',
       category: 'turismo',
@@ -66,6 +67,7 @@ const AcademyPage = () => {
       id: 'contabilidad-turismo',
       title: 'Contabilidad Especializada en Turismo',
       description: 'Estructura financiera para agencias de viajes. Conciliación de cuentas, gestión de comisiones y control de flujo de caja turístico.',
+      image: '/courses/contabilidad-turismo.jpg',
       duration: '8 Clases (En vivo)',
       level: 'Intermedio',
       category: 'turismo',
@@ -101,6 +103,7 @@ const AcademyPage = () => {
       id: 'lead-scoring',
       title: 'Lead Scoring y Cualificación B2B',
       description: 'Diseña flujos conversacionales inteligentes para captar, filtrar y puntuar leads antes de que lleguen a tu equipo de ventas.',
+      image: '/courses/lead-scoring.jpg',
       duration: '6 semanas',
       level: 'Intermedio',
       category: 'transversal',
@@ -110,6 +113,7 @@ const AcademyPage = () => {
       id: 'ia-pqrs',
       title: 'IA Aplicada a Gestión de PQRS',
       description: 'Implementa modelos de lenguaje modernos para clasificar, priorizar y automatizar las respuestas de soporte al cliente de forma eficiente.',
+      image: '/courses/ia-pqrs.jpg',
       duration: '6 semanas',
       level: 'Intermedio',
       category: 'transversal',
@@ -297,6 +301,7 @@ const AcademyPage = () => {
                   <CourseCard
                     title={course.title}
                     description={course.description}
+                    image={course.image}
                     duration={course.duration}
                     level={course.level}
                     primaryCta={{ label: course.cta, onClick: () => handleCourseClick(course) }}
