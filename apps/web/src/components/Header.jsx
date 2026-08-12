@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sparkles } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
@@ -23,9 +23,11 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center transition-transform duration-200 group-hover:scale-110">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
+            <img
+              src="/logo.png"
+              alt="FlowSidian"
+              className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-110"
+            />
             <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-['Outfit']">
               FlowSidian
             </span>
