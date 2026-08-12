@@ -30,29 +30,6 @@ const AboutPage = () => {
     },
   ];
 
-  const milestones = [
-    {
-      year: '2021',
-      title: 'Fundación',
-      description: 'Inicio de FlowSidian con la visión de democratizar la automatización empresarial con IA.',
-    },
-    {
-      year: '2022',
-      title: 'Primeros clientes',
-      description: 'Implementación exitosa de soluciones de automatización para 12 empresas en diversos sectores.',
-    },
-    {
-      year: '2023',
-      title: 'Lanzamiento de Academia',
-      description: 'Apertura de la plataforma educativa con cursos especializados en tecnologías aplicadas.',
-    },
-    {
-      year: '2024',
-      title: 'Expansión internacional',
-      description: 'Más de 47 proyectos completados y presencia en 5 países de habla hispana.',
-    },
-  ];
-
   return (
     <>
       <Helmet>
@@ -149,50 +126,6 @@ const AboutPage = () => {
                   <p className="text-muted-foreground leading-relaxed">{value.description}</p>
                 </motion.div>
               ))}
-            </div>
-          </div>
-
-          <div>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-snug">
-                Nuestra trayectoria
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Hitos clave en el crecimiento de FlowSidian
-              </p>
-            </div>
-
-            <div className="relative">
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-border hidden md:block"></div>
-              
-              <div className="space-y-12">
-                {milestones.map((milestone, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative pl-0 md:pl-24"
-                  >
-                    <div className="absolute left-0 top-0 w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center hidden md:flex">
-                      <span className="text-xl font-bold text-primary">{milestone.year}</span>
-                    </div>
-                    
-                    <div className="bg-card border border-border rounded-2xl p-8">
-                      <div className="flex items-center gap-4 mb-4 md:hidden">
-                        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-xl font-bold text-primary">{milestone.year}</span>
-                        </div>
-                        <h3 className="text-2xl font-semibold">{milestone.title}</h3>
-                      </div>
-                      
-                      <h3 className="text-2xl font-semibold mb-4 hidden md:block">{milestone.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{milestone.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
             </div>
           </div>
         </div>

@@ -5,13 +5,26 @@ import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import CourseCard from '@/components/CourseCard.jsx';
-import { GraduationCap, Award, Users, BookOpen, Briefcase, Plane, Calendar, Clock, Monitor, CheckCircle, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { GraduationCap, Award, Users, BookOpen, Briefcase, Plane, Calendar, Clock, Monitor, CheckCircle, Loader2, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
+
+const DETAIL_MODAL_COURSE_IDS = ['gestion-digital', 'contabilidad-turismo'];
 
 const AcademyPage = () => {
   const [activeCategory, setActiveCategory] = useState('turismo');
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [waitlistCourse, setWaitlistCourse] = useState(null);
+  const [waitlistForm, setWaitlistForm] = useState({ name: '', email: '', phone: '' });
+  const [isSubmittingWaitlist, setIsSubmittingWaitlist] = useState(false);
   const navigate = useNavigate();
+
+  // Mismo mecanismo de envío que ContactForm.jsx (cuenta hola@flowsidian.com en EmailJS).
+  const EMAILJS_SERVICE_ID = 'service_6r0vqcj';
+  const EMAILJS_TEMPLATE_ID = 'template_lkcjmv8';
+  const EMAILJS_PUBLIC_KEY = 'DM4bk26q9fxK-55mX';
 
   const courses = [
     {
@@ -53,10 +66,36 @@ const AcademyPage = () => {
       id: 'contabilidad-turismo',
       title: 'Contabilidad Especializada en Turismo',
       description: 'Estructura financiera para agencias de viajes. Conciliación de cuentas, gestión de comisiones y control de flujo de caja turístico.',
-      duration: 'Próximamente',
+      duration: '8 Clases (En vivo)',
       level: 'Intermedio',
       category: 'turismo',
-      cta: 'Anotarse a lista de espera',
+      cta: 'Ver detalles del programa',
+      modality: 'En vivo (12 hs)',
+      schedule: 'Martes y Viernes de 18 a 19:30 hs',
+      audience: 'Dueños, administrativos y contables de agencias de viajes que buscan profesionalizar la gestión financiera.',
+      price: '$12.000',
+      paymentMethod: 'Mercado Pago disponible',
+      instructor: 'Con más de 8 años asesorando contablemente a agencias de viajes y operadores turísticos.',
+      benefits: [
+        'Entender la lógica contable específica del negocio de agencias de viajes (venta de servicios de terceros vs. venta propia).',
+        'Conciliar correctamente las cuentas corrientes con operadores, mayoristas y proveedores turísticos.',
+        'Calcular y controlar comisiones de forma precisa, evitando pérdidas silenciosas.',
+        'Aplicar correctamente el tratamiento de IVA y percepciones en operaciones turísticas.',
+        'Proyectar el flujo de caja considerando la estacionalidad propia del sector.',
+        'Facturar correctamente a operadores y mayoristas, evitando errores frecuentes.',
+        'Generar reportes gerenciales simples que ayuden a tomar mejores decisiones de negocio.',
+        'En síntesis, vas a tener control real sobre las finanzas de tu agencia, sin depender exclusivamente de un contador externo para entender en qué situación está tu negocio.'
+      ],
+      syllabus: [
+        { class: 'Clase 1', title: 'Introducción a la contabilidad de agencias de viajes', desc: 'Particularidades del sector: venta de servicios de terceros, comisiones y anticipos de clientes frente a la contabilidad tradicional.' },
+        { class: 'Clase 2', title: 'Conciliación de cuentas con operadores y proveedores', desc: 'Cómo conciliar cuentas corrientes con mayoristas, hoteles y aerolíneas para detectar diferencias a tiempo.' },
+        { class: 'Clase 3', title: 'Gestión de comisiones de agencias', desc: 'Cálculo, registración y control de las comisiones ganadas por la venta de paquetes y servicios.' },
+        { class: 'Clase 4', title: 'IVA y percepciones en el sector turístico', desc: 'Tratamiento impositivo de comisiones, paquetes armados y servicios vendidos al exterior.' },
+        { class: 'Clase 5', title: 'Facturación a operadores y mayoristas', desc: 'Tipos de comprobantes, facturación electrónica y casos especiales como ventas en cuotas y anticipos.' },
+        { class: 'Clase 6', title: 'Flujo de caja estacional', desc: 'Proyectar ingresos y egresos considerando los picos y valles propios de la temporada turística.' },
+        { class: 'Clase 7', title: 'Control de anticipos y señas de clientes', desc: 'Registración contable de anticipos, cancelaciones y reprogramaciones de viajes.' },
+        { class: 'Clase 8', title: 'Cierre contable y reportes gerenciales', desc: 'Armar reportes simples que le sirvan al dueño de la agencia para decidir: rentabilidad por destino, por vendedor y por operador.' }
+      ]
     },
     {
       id: 'lead-scoring',
@@ -115,7 +154,7 @@ const AcademyPage = () => {
   const filteredPaths = learningPaths.filter(path => path.category === activeCategory);
 
   const handleCourseClick = (course) => {
-    if (course.id === 'gestion-digital') {
+    if (DETAIL_MODAL_COURSE_IDS.includes(course.id)) {
       setSelectedCourse(course);
     } else {
       navigate('/contact');
@@ -125,6 +164,47 @@ const AcademyPage = () => {
   const handleEnrollment = (e) => {
     e.preventDefault();
     navigate('/contact');
+  };
+
+  const handleWaitlistOpen = (course) => {
+    setWaitlistForm({ name: '', email: '', phone: '' });
+    setWaitlistCourse(course);
+  };
+
+  const handleWaitlistChange = (e) => {
+    const { name, value } = e.target;
+    setWaitlistForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleWaitlistSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmittingWaitlist(true);
+
+    try {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: EMAILJS_SERVICE_ID,
+          template_id: EMAILJS_TEMPLATE_ID,
+          user_id: EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: waitlistForm.name,
+            from_email: waitlistForm.email,
+            message: `Anotado/a en la lista de espera del curso "${waitlistCourse?.title}". Teléfono: ${waitlistForm.phone || 'no indicado'}.`,
+          },
+        }),
+      });
+
+      if (!response.ok) throw new Error('Error en el envío');
+
+      toast.success('¡Listo! Te anotamos en la lista de espera.');
+      setWaitlistCourse(null);
+    } catch (error) {
+      toast.error('Error al enviar. Por favor intenta de nuevo.');
+    } finally {
+      setIsSubmittingWaitlist(false);
+    }
   };
 
   return (
@@ -218,16 +298,18 @@ const AcademyPage = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
-                  onClick={() => handleCourseClick(course)}
-                  className="cursor-pointer"
                 >
                   <CourseCard
                     title={course.title}
                     description={course.description}
                     duration={course.duration}
                     level={course.level}
-                    cta={course.cta}
-                    ctaLink="#"
+                    primaryCta={{ label: course.cta, onClick: () => handleCourseClick(course) }}
+                    secondaryCta={
+                      DETAIL_MODAL_COURSE_IDS.includes(course.id)
+                        ? { label: 'Anotarse a la lista de espera', onClick: () => handleWaitlistOpen(course) }
+                        : undefined
+                    }
                     index={index}
                   />
                 </motion.div>
@@ -382,6 +464,93 @@ const AcademyPage = () => {
                   </button>
                 </div>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {waitlistCourse && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              className="relative w-full max-w-md bg-card border border-border rounded-2xl p-6 md:p-8 shadow-2xl"
+            >
+              <button
+                onClick={() => setWaitlistCourse(null)}
+                className="absolute top-4 right-4 p-2 rounded-xl bg-muted/50 hover:bg-muted text-muted-foreground transition-all duration-200"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <h2 className="text-xl font-bold leading-tight mb-2 pr-8">
+                Lista de espera
+              </h2>
+              <p className="text-muted-foreground text-sm mb-6">
+                {waitlistCourse.title}
+              </p>
+
+              <form onSubmit={handleWaitlistSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="waitlist-name" className="text-foreground">Nombre completo *</Label>
+                  <Input
+                    id="waitlist-name"
+                    name="name"
+                    value={waitlistForm.name}
+                    onChange={handleWaitlistChange}
+                    placeholder="Tu nombre"
+                    required
+                    className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="waitlist-email" className="text-foreground">Email *</Label>
+                  <Input
+                    id="waitlist-email"
+                    name="email"
+                    type="email"
+                    value={waitlistForm.email}
+                    onChange={handleWaitlistChange}
+                    placeholder="tu@email.com"
+                    required
+                    className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="waitlist-phone" className="text-foreground">Teléfono (opcional)</Label>
+                  <Input
+                    id="waitlist-phone"
+                    name="phone"
+                    type="tel"
+                    value={waitlistForm.phone}
+                    onChange={handleWaitlistChange}
+                    placeholder="+54 9 ..."
+                    className="bg-input border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-primary"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmittingWaitlist}
+                  className="w-full px-6 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm text-center shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isSubmittingWaitlist ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    'Anotarme a la lista de espera'
+                  )}
+                </button>
+              </form>
             </motion.div>
           </motion.div>
         )}

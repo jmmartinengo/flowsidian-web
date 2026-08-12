@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 
-const CourseCard = ({ title, description, duration, level, image, cta, ctaLink, index = 0 }) => {
+const CourseCard = ({ title, description, duration, level, image, primaryCta, secondaryCta, index = 0 }) => {
   const levelColors = {
     Principiante: 'bg-green-500/10 text-green-500 border-green-500/20',
     Intermedio: 'bg-blue-500/10 text-blue-500 border-blue-500/20',
@@ -47,16 +47,23 @@ const CourseCard = ({ title, description, duration, level, image, cta, ctaLink, 
           {description}
         </p>
         
-        <div className="mt-auto">
+        <div className="mt-auto space-y-3">
           <Button
-            asChild
+            onClick={primaryCta?.onClick}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group"
           >
-            <a href={ctaLink}>
-              {cta}
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
-            </a>
+            {primaryCta?.label}
+            <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
           </Button>
+          {secondaryCta && (
+            <Button
+              onClick={secondaryCta.onClick}
+              variant="outline"
+              className="w-full"
+            >
+              {secondaryCta.label}
+            </Button>
+          )}
         </div>
       </div>
     </motion.div>

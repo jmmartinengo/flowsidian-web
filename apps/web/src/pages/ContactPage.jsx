@@ -16,14 +16,14 @@ const ContactPage = () => {
     },
     {
       icon: Phone,
-      title: 'Phone',
+      title: 'Teléfono',
       value: '+543516133670',
       link: 'tel:+543516133670',
     },
     {
       icon: MapPin,
-      title: 'Location',
-      value: 'San Antonio de Arredondo, Córdoba, Argentina',
+      title: 'Ubicación',
+      value: 'Córdoba - Global',
       link: null,
     },
   ];
