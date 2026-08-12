@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 4%;
+    --foreground: 210 20% 98%;
+    
+    --card: 240 10% 6%;
+    --card-foreground: 210 20% 98%;
+    
+    --popover: 240 10% 6%;
+    --popover-foreground: 210 20% 98%;
+    
+    --primary: 270 70% 60%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 220 20% 20%;
+    --secondary-foreground: 210 20% 98%;
+    
+    --muted: 240 5% 26%;
+    --muted-foreground: 240 5% 70%;
+    
+    --accent: 280 80% 65%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 240 10% 12%;
+    --input: 240 10% 16%;
+    --ring: 270 70% 60%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: clip;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: 'kern' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    text-wrap: balance;
+  }
+  
+  p {
+    max-width: 65ch;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
