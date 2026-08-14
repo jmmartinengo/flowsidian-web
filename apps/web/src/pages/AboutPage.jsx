@@ -75,7 +75,7 @@ const AboutPage = () => {
               <p className="text-sm font-semibold text-primary tracking-wide uppercase mb-2">Sobre mí</p>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-snug">Innovación y Experiencia</h2>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                Con más de 10 años liderando proyectos de transformación digital en la industria turística, mi objetivo es cerrar la brecha entre el trabajo tradicional y las nuevas tecnologías.
+                La eficiencia se traduce en más producción y de mejor calidad. Llevo más de 10 años optimizando procesos para diferentes organizaciones. Aprendí que por cada minuto de planificación se ahorra una hora de trabajo, y ese principio guía cada proyecto que diseño.
               </p>
               <ul className="space-y-3 mb-6 inline-block text-left">
                 <li className="flex items-center gap-3">
