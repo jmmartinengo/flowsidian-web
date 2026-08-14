@@ -3,7 +3,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
-import { Target, Eye, Lightbulb, Shield, TrendingUp, Users } from 'lucide-react';
+import { Target, Eye, Lightbulb, Shield, TrendingUp, Users, ChevronRight, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const AboutPage = () => {
@@ -53,6 +53,56 @@ const AboutPage = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Transformamos empresas con automatización inteligente y educación tecnológica de vanguardia
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-muted/30">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center"
+          >
+            <img
+              src="/jose-martinengo-square.jpg"
+              alt="José Martinengo"
+              className="w-48 h-48 rounded-full object-cover border-4 border-primary/20 mx-auto md:mx-0"
+            />
+            <div className="text-center md:text-left">
+              <p className="text-sm font-semibold text-primary tracking-wide uppercase mb-2">Sobre mí</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-snug">Innovación y Experiencia</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                Con más de 10 años liderando proyectos de transformación digital en la industria turística, mi objetivo es cerrar la brecha entre el trabajo tradicional y las nuevas tecnologías.
+              </p>
+              <ul className="space-y-3 mb-6 inline-block text-left">
+                <li className="flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <ChevronRight className="w-4 h-4 text-primary" />
+                  </span>
+                  <span className="italic text-foreground">Director de Innovación y Tecnología Institucional (FTA)</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <ChevronRight className="w-4 h-4 text-primary" />
+                  </span>
+                  <span className="italic text-foreground">Estratega en gestión eficiente</span>
+                </li>
+              </ul>
+              <div>
+                <a
+                  href="https://www.linkedin.com/in/jmartinengo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-border bg-card hover:bg-muted text-sm font-medium transition-all duration-200"
+                >
+                  <Linkedin className="w-4 h-4 text-primary" />
+                  Conectar en LinkedIn
+                </a>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
